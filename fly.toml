@@ -1,28 +1,37 @@
-# Fly.io: `fly launch --no-deploy --copy-config`, `fly volumes create elo_data --size 1`, `fly secrets set MEDIA_SECRET=$(openssl rand -hex 32)`, `fly deploy`
-app = "elo-app-troque-o-nome"
-primary_region = "gru"
+# fly.toml app configuration file generated for honeyed-harborbird-399 on 2026-11-08T22:01:08Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'honeyed-harborbird-399'
+primary_region = 'gru'
 
 [build]
-
 [env]
-  PORT = "8080"
-  NODE_ENV = "production"
-  DB_PATH = "/data/elo.db"
-  UPLOAD_DIR = "/data/uploads"
-  REQUIRE_EMAIL_VERIFICATION = "false"   # sem provedor de e-mail ainda; mude para true quando houver
-  AUTO_APPROVE_PHOTOS = "false"          # fotos passam por moderação em /admin/
+  AUTO_APPROVE_PHOTOS = 'false'
+  DB_PATH = '/data/elo.db'
+  NODE_ENV = 'production'
+  PORT = '8080'
+  REQUIRE_EMAIL_VERIFICATION = 'false'
+  UPLOAD_DIR = '/data/uploads'
 
 [[mounts]]
-  source = "elo_data"
-  destination = "/data"
+  source = 'elo_data'
+  destination = '/data'
 
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = "off"
+  auto_stop_machines = 'off'
   min_machines_running = 1
-  [http_service.checks]
+
   [[http_service.checks]]
-    path = "/healthz"
-    interval = "30s"
-    timeout = "5s"
+    interval = '30s'
+    timeout = '5s'
+    path = '/healthz'
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+  memory_mb = 1024
