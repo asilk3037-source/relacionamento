@@ -1,0 +1,10 @@
+{
+  "appId": "br.app.elo",
+  "appName": "Elo",
+  "webDir": "public",
+  "android": { "allowMixedContent": false },
+  "server": { "androidScheme": "https" },
+  "plugins": {
+    "SplashScreen": { "launchShowDuration": 900, "backgroundColor": "#F3F6FA", "androidScaleType": "CENTER_CROP" }
+  }
+}
