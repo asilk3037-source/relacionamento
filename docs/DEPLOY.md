@@ -10,6 +10,11 @@ fly secrets set MEDIA_SECRET=$(openssl rand -hex 32)
 fly deploy
 fly ssh console -C "npm run create-admin -- voce@email.com 'SenhaForte123'"
 ```
+## Opção A2 — Fly.io só pelo navegador/celular (sem terminal)
+1. fly.io → *Create a Machine* → **Launch from GitHub** → escolha este repositório e a branch `main` (ele lê o `Dockerfile` e o `fly.toml`; troque o `app =` por um nome único).
+2. Em *Secrets* do app, crie: `MEDIA_SECRET` (um texto aleatório longo), `ADMIN_EMAIL` e `ADMIN_PASSWORD` (senha forte). Na primeira inicialização o servidor cria o administrador; depois **apague `ADMIN_PASSWORD`** dos secrets.
+3. Confirme que o volume `elo_data` (1 GB) foi criado e montado em `/data`; sem ele, o banco e as fotos se perdem a cada deploy.
+
 ## Opção B — Render
 New → Blueprint → este repositório (`render.yaml`; o disco exige plano pago). Depois, no *Shell* do serviço: `npm run create-admin -- voce@email.com 'SenhaForte123'`.
 
