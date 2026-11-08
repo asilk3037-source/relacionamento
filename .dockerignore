@@ -1,0 +1,10 @@
+node_modules
+data
+_site
+.git
+docs
+test
+scripts
+android
+resources
+store

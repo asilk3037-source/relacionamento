@@ -1,0 +1,18 @@
+# Render (precisa de plano com disco persistente): New → Blueprint → aponte para este repositório.
+services:
+  - type: web
+    name: elo
+    runtime: docker
+    plan: starter
+    healthCheckPath: /healthz
+    disk:
+      name: elo-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - { key: NODE_ENV, value: production }
+      - { key: DB_PATH, value: /data/elo.db }
+      - { key: UPLOAD_DIR, value: /data/uploads }
+      - { key: REQUIRE_EMAIL_VERIFICATION, value: "false" }
+      - { key: AUTO_APPROVE_PHOTOS, value: "false" }
+      - { key: MEDIA_SECRET, generateValue: true }

@@ -31,6 +31,8 @@ function createApp(options = {}) {
   app.use('/api', (req, res, next) => { res.set('Cache-Control', 'no-store'); next(); });
   app.use(express.json({ limit: '100kb' }));
 
+  app.get('/healthz', (req, res) => { try { ctx.db.get('SELECT 1 AS ok'); res.json({ ok: true }); } catch { res.status(503).json({ ok: false }); } });
+
   const wrap = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
   const r = express.Router();
 
